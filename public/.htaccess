@@ -1,0 +1,56 @@
+# Copied into the exported `out/` folder automatically (Next.js copies
+# everything under /public to the export root), so this ships to Namecheap
+# shared hosting with every build. See README.md "Deploying to Namecheap".
+
+# Force HTTPS. Namecheap's AutoSSL/Let's Encrypt certificate must be issued
+# first (cPanel > SSL/TLS Status > Run AutoSSL) or this redirect loops.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# Static export writes each route as /route/index.html; serve the matching
+# custom 404 page instead of the host's default error page.
+ErrorDocument 404 /404.html
+
+# The favicon/Apple-icon/social-preview routes (icon.tsx, opengraph-image.tsx,
+# twitter-image.tsx) are Next.js metadata conventions with no file extension
+# at their URL (/icon, /opengraph-image, /about/opengraph-image, ...). They
+# are real PNGs on disk, but Apache's extension-based MIME lookup can't tell
+# that, and will otherwise serve them as the wrong type — which breaks them
+# silently for social crawlers (Facebook/Twitter/LinkedIn/WhatsApp fetch the
+# og:image URL directly and require an image Content-Type; they don't read
+# the page's HTML to guess). Force it explicitly regardless of directory.
+<IfModule mod_mime.c>
+  <FilesMatch "^(icon|apple-icon|opengraph-image|twitter-image)$">
+    ForceType image/png
+  </FilesMatch>
+  AddType application/manifest+json .webmanifest
+</IfModule>
+
+# Content-hashed build assets: safe to cache for a year. Everything else
+# (HTML) revalidates on every request so a redeploy is visible immediately.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/xml "access plus 0 seconds"
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "\.(js|css|avif|webp|png|jpg|jpeg|svg|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Baseline hardening headers.
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# Compress text-based responses.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml application/xml
+</IfModule>

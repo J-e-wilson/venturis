@@ -1,0 +1,336 @@
+@import "tailwindcss";
+
+/*
+  Semantic tokens live on :root as raw custom properties so Tailwind utilities
+  (via @theme inline) and inline SVG both read them. Dark mode swaps the raw
+  values; the shadow set swaps with it so elevation reads in both themes.
+*/
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-ink: var(--ink);
+  --color-on-ink: var(--on-ink);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-hairline: var(--hairline);
+  --color-accent: var(--accent);
+  --color-accent-bright: var(--accent-bright);
+
+  --shadow-card: var(--sh-card);
+  --shadow-raised: var(--sh-raised);
+  --shadow-hero: var(--sh-hero);
+
+  --radius-card: 20px;
+  --radius-cell: 14px;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
+}
+
+:root {
+  --bg: #f6f5f1;
+  --surface: #ffffff;
+  --raised: #ffffff;
+  --ink: #14232e;
+  --on-ink: #eceef0;
+  --text: #17242f;
+  --muted: #4b5963;
+  --border: #e5e0d5;
+  --hairline: #ece8de;
+  --accent: #9a6a25;
+  --accent-bright: #b8863b;
+
+  --sh-card: 0 1px 2px rgb(20 35 46 / 0.04), 0 4px 14px rgb(20 35 46 / 0.05);
+  --sh-raised: 0 6px 16px rgb(20 35 46 / 0.06), 0 18px 44px rgb(20 35 46 / 0.09);
+  --sh-hero: 0 14px 34px rgb(20 35 46 / 0.10), 0 34px 80px rgb(20 35 46 / 0.14);
+  --glow: 0 0 0 1px color-mix(in srgb, var(--accent-bright) 45%, transparent),
+    0 0 32px color-mix(in srgb, var(--accent-bright) 28%, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e161c;
+    --surface: #151f28;
+    --raised: #1a2732;
+    --ink: #1a2b37;
+    --on-ink: #eceef0;
+    --text: #e8ebed;
+    --muted: #9aa6af;
+    --border: #26333d;
+    --hairline: #212d36;
+    --accent: #d2a55e;
+    --accent-bright: #cf9a4a;
+
+    --sh-card: 0 1px 2px rgb(0 0 0 / 0.34), 0 4px 14px rgb(0 0 0 / 0.4);
+    --sh-raised: 0 6px 16px rgb(0 0 0 / 0.42), 0 18px 44px rgb(0 0 0 / 0.5);
+    --sh-hero: 0 14px 34px rgb(0 0 0 / 0.5), 0 34px 80px rgb(0 0 0 / 0.6);
+    --glow: 0 0 0 1px color-mix(in srgb, var(--accent-bright) 60%, transparent),
+      0 0 38px color-mix(in srgb, var(--accent-bright) 40%, transparent);
+  }
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  scrollbar-color: color-mix(in srgb, var(--muted) 45%, transparent) transparent;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Fluid, weight-led display scale. Sans throughout; the serif is the mark only. */
+.text-display,
+.text-h1,
+.text-h2,
+.text-h3 {
+  font-family: var(--font-sans);
+  font-optical-sizing: auto;
+  text-wrap: balance;
+}
+.text-display {
+  font-size: clamp(2.5rem, 1.72rem + 3.5vw, 4rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+}
+.text-h1 {
+  font-size: clamp(2.1rem, 1.62rem + 2.1vw, 3.25rem);
+  line-height: 1.07;
+  letter-spacing: -0.026em;
+  font-weight: 500;
+}
+.text-h2 {
+  font-size: clamp(1.7rem, 1.44rem + 1.15vw, 2.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
+.text-h3 {
+  font-size: clamp(1.1rem, 1.02rem + 0.38vw, 1.4rem);
+  line-height: 1.24;
+  letter-spacing: -0.012em;
+  font-weight: 600;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/*
+  Brief on-load fade for first-viewport blocks only (opt in with `.reveal-load`).
+  Time-based, plays once, never holds content hidden, needs no JS. Content
+  without the class renders instantly.
+*/
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-load {
+    animation: reveal-in 0.32s ease-out both;
+  }
+  @keyframes reveal-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent-bright) 26%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/*
+  Shared "box" hover: every card/panel on the site enlarges slightly and
+  picks up a soft accent glow on top of its resting elevation. Mouse-hover
+  is gated to real pointers so a touch tap can't get stuck "hovered"; a
+  keyboard focus on a box wrapped in a `group` link (LiftCard) gets the same
+  treatment via :focus-visible. A press (mouse or touch) settles to a smaller
+  scale, like the box compressing slightly. Reduced motion keeps the glow
+  (a colour cue) but drops the size change.
+*/
+.box-hover {
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .box-hover:hover {
+    transform: scale(1.03);
+    box-shadow: var(--sh-raised), var(--glow);
+  }
+}
+.group:focus-visible .box-hover {
+  transform: scale(1.03);
+  box-shadow: var(--sh-raised), var(--glow);
+}
+.box-hover:active {
+  transform: scale(1.015);
+}
+@media (prefers-reduced-motion: reduce) {
+  .box-hover:hover,
+  .box-hover:active,
+  .group:focus-visible .box-hover {
+    transform: none;
+  }
+}
+
+/*
+  A quieter response for full photographs (the /supply feature images):
+  the frame lifts and its shadow deepens, no glow ring, while the photo
+  itself settles into a slow, subtle scale and brightens a touch within its
+  frame, a materials response rather than a UI affordance. Distinct on
+  purpose from `.box-hover`, which is for informational cards, not imagery.
+*/
+.photo-elegant {
+  transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.photo-elegant img {
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 700ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .photo-elegant:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--sh-hero);
+  }
+  .photo-elegant:hover img {
+    transform: scale(1.045);
+    filter: brightness(1.07);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .photo-elegant:hover,
+  .photo-elegant:hover img {
+    transform: none;
+  }
+}
+
+/*
+  Shared surface for every site dialog (enquiry, legal): a native <dialog>,
+  centred by the UA, sized to its content by whatever `w-*` utility the
+  instance adds. Entrance is a progressive-enhancement fade + scale from
+  @starting-style (unsupported browsers just show it, no breakage); closing
+  is intentionally instant, so there is no fragile delayed-close JS.
+*/
+.dialog-surface {
+  margin: auto;
+  padding: 0;
+  border: none;
+  max-height: calc(100vh - 3rem);
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--raised);
+  box-shadow: var(--sh-hero);
+  color: var(--text);
+}
+.dialog-surface::backdrop {
+  background: color-mix(in srgb, var(--ink) 55%, transparent);
+  backdrop-filter: blur(8px);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .dialog-surface {
+    transition: opacity 240ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .dialog-surface::backdrop {
+    transition: opacity 240ms ease-out;
+  }
+  @starting-style {
+    .dialog-surface {
+      opacity: 0;
+      transform: scale(0.95) translateY(10px);
+    }
+    .dialog-surface::backdrop {
+      opacity: 0;
+    }
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .dialog-surface::backdrop {
+    background: var(--ink);
+    backdrop-filter: none;
+  }
+}
+@media (prefers-contrast: more) {
+  .dialog-surface {
+    border: 1px solid var(--text);
+  }
+  .dialog-surface::backdrop {
+    background: var(--ink);
+    backdrop-filter: none;
+  }
+}
+
+/* Floating translucent chrome. Content scrolls under it. */
+.glass {
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--muted) 42%, transparent);
+  border: 3px solid var(--bg);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--muted) 62%, transparent);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    background: var(--bg);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .glass {
+    background: var(--bg);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom: 1px solid var(--text);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

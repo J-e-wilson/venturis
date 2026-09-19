@@ -1,0 +1,83 @@
+import Link from "next/link";
+import { EnvelopeSimple, MapPin } from "@phosphor-icons/react/dist/ssr";
+import { Logo } from "./logo";
+import { Container } from "./container";
+import { LegalLinks } from "./legal-links";
+
+const NAV_LINKS = [
+  { href: "/about", label: "About" },
+  { href: "/supply", label: "Supply" },
+  { href: "/process", label: "Process" },
+  { href: "/contact", label: "Contact" },
+];
+
+const groupLabel = "text-xs font-medium uppercase tracking-wide text-on-ink/45";
+
+export function SiteFooter() {
+  return (
+    <footer className="relative overflow-hidden rounded-t-[28px] bg-ink text-on-ink">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full border border-white/10"
+      />
+
+      <Container className="relative py-16 md:py-20">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:gap-8">
+          <div>
+            <Logo onInk />
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-on-ink/75">
+              Mauritius-based sourcing and supply for drinks and food FMCG,
+              connecting producers across Africa, Asia and Europe.
+            </p>
+          </div>
+
+          <div>
+            <p className={groupLabel}>Navigate</p>
+            <nav className="mt-4 flex flex-col gap-2.5">
+              {NAV_LINKS.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className="text-sm text-on-ink/80 transition-colors hover:text-on-ink"
+                >
+                  {l.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          <div>
+            <p className={groupLabel}>Reach us</p>
+            <div className="mt-4 flex flex-col gap-2.5 text-sm text-on-ink/80">
+              <a
+                href="mailto:info@venturis.mu"
+                className="inline-flex items-center gap-2 transition-colors hover:text-on-ink"
+              >
+                <EnvelopeSimple size={16} weight="regular" className="text-accent-bright" />
+                info@venturis.mu
+              </a>
+              <span className="inline-flex items-center gap-2">
+                <MapPin size={16} weight="regular" className="text-accent-bright" />
+                Ebène, Mauritius
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <p className={groupLabel}>Legal</p>
+            <nav className="mt-4 flex flex-col gap-2.5">
+              <LegalLinks />
+            </nav>
+          </div>
+        </div>
+
+        <div className="mt-12 flex flex-col gap-3 border-t border-white/15 pt-6 text-xs text-on-ink/65 sm:flex-row sm:items-center sm:justify-between">
+          <p>© 2026 Venturis Ltd, Ebène, Mauritius</p>
+          <p className="text-on-ink/50">
+            No cookies, no tracking. See our Privacy Policy for details.
+          </p>
+        </div>
+      </Container>
+    </footer>
+  );
+}
