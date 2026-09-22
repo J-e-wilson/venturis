@@ -7,10 +7,12 @@
  */
 export const SITE_URL = "https://venturis.mu";
 export const SITE_NAME = "Venturis";
+// Kept at or under ~60 characters so Google doesn't truncate it in the SERP.
 export const SITE_TITLE =
-  "Venturis | Drinks and food FMCG supply routed through Mauritius";
+  "Venturis | Drinks and food FMCG supply through Mauritius";
+// Kept at or under ~160 characters for the same reason.
 export const SITE_DESCRIPTION =
-  "Venturis is a Mauritius-based supply company sourcing drinks and food FMCG for distributors and retailers, linking producers across Africa, Asia and Europe with vetted supply and dependable logistics.";
+  "Venturis is a Mauritius-based supply company sourcing drinks and food FMCG for distributors and retailers, linking producers across Africa, Asia and Europe.";
 
 /**
  * Next.js does not deep-merge `openGraph` / `twitter` between a layout and

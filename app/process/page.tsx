@@ -4,7 +4,7 @@ import { CtaBand } from "@/components/cta-band";
 import { OG_BASE, TWITTER_CARD } from "@/lib/site";
 
 const description =
-  "From requirement to delivery: how Venturis maps a requirement, sources against vetted suppliers, coordinates logistics through Mauritius, and delivers on schedule.";
+  "From requirement to delivery: how Venturis maps a requirement, sources against vetted suppliers, and delivers on schedule through Mauritius.";
 
 export const metadata: Metadata = {
   title: "Process",

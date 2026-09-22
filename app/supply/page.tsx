@@ -4,7 +4,7 @@ import { CtaBand } from "@/components/cta-band";
 import { OG_BASE, TWITTER_CARD } from "@/lib/site";
 
 const description =
-  "Venturis supplies two FMCG categories: beverages (spirits, wines, beers, soft drinks) and packaged food, sourced from vetted producers with full trade documentation.";
+  "Venturis supplies two FMCG categories: beverages (spirits, wines, beers, soft drinks) and packaged food, sourced from vetted producers.";
 
 export const metadata: Metadata = {
   title: "Supply",
