@@ -10,6 +10,7 @@ import { WhatsAppButton } from "@/components/whatsapp-button";
 import {
   OG_BASE,
   SITE_DESCRIPTION,
+  SITE_EMAIL,
   SITE_NAME,
   SITE_TITLE,
   SITE_URL,
@@ -73,8 +74,8 @@ const organizationSchema = {
   "@type": "Organization",
   name: "Venturis Ltd",
   url: SITE_URL,
-  logo: `${SITE_URL}/icon`,
-  email: "info@venturis.mu",
+  logo: `${SITE_URL}/icon.png`,
+  email: SITE_EMAIL,
   telephone: "+44 7472 773107",
   description: SITE_DESCRIPTION,
   address: {

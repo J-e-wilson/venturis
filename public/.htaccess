@@ -14,16 +14,18 @@
 # custom 404 page instead of the host's default error page.
 ErrorDocument 404 /404.html
 
-# The favicon/Apple-icon/social-preview routes (icon.tsx, opengraph-image.tsx,
-# twitter-image.tsx) are Next.js metadata conventions with no file extension
-# at their URL (/icon, /opengraph-image, /about/opengraph-image, ...). They
-# are real PNGs on disk, but Apache's extension-based MIME lookup can't tell
-# that, and will otherwise serve them as the wrong type — which breaks them
-# silently for social crawlers (Facebook/Twitter/LinkedIn/WhatsApp fetch the
-# og:image URL directly and require an image Content-Type; they don't read
-# the page's HTML to guess). Force it explicitly regardless of directory.
+# The social-preview routes (opengraph-image.tsx, twitter-image.tsx) are
+# Next.js metadata conventions with no file extension at their URL
+# (/opengraph-image, /about/opengraph-image, ...). They are real PNGs on
+# disk, but Apache's extension-based MIME lookup can't tell that, and will
+# otherwise serve them as the wrong type — which breaks them silently for
+# social crawlers (Facebook/Twitter/LinkedIn/WhatsApp fetch the og:image URL
+# directly and require an image Content-Type; they don't read the page's
+# HTML to guess). Force it explicitly regardless of directory. (The favicon
+# and Apple touch icon are plain icon.png / apple-icon.png files now, so
+# Apache's normal extension-based lookup already gets those right.)
 <IfModule mod_mime.c>
-  <FilesMatch "^(icon|apple-icon|opengraph-image|twitter-image)$">
+  <FilesMatch "^(opengraph-image|twitter-image)$">
     ForceType image/png
   </FilesMatch>
   AddType application/manifest+json .webmanifest

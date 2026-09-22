@@ -66,19 +66,23 @@ card metadata.
   headline, no external image tool involved. Each `twitter-image.tsx` is a
   one-line re-export of the same file, so Twitter/X gets an identical
   `summary_large_image` card with no duplicated design.
-- **Favicon** (`app/icon.tsx`) and **Apple touch icon** (`app/apple-icon.tsx`)
-  are generated the same way from the logo mark, with a solid navy backing
-  baked in so it stays legible in both light and dark browser chrome.
+- **Favicon** (`app/icon.png`) and **Apple touch icon** (`app/apple-icon.png`)
+  are real exports of the brand mark, traced from `Site_info/Venturis -
+  Logo.pdf` (a flat vector: ring, two-tone "V", no embedded raster) rather
+  than hand-drawn. The favicon keeps the mark's true colors on a transparent
+  background; the Apple touch icon composites the same mark, recolored for a
+  dark card, onto a solid navy square (Apple expects an opaque icon). The
+  OG/Twitter card's corner mark (`lib/og-image.tsx`) uses that same
+  dark-card recolor, saved as `assets/logo-mark-dark.png`.
 - **`app/robots.ts`**, **`app/sitemap.ts`** and **`app/manifest.ts`** are the
   Next.js file-convention generators for `/robots.txt`, `/sitemap.xml` and
   `/manifest.webmanifest`.
 - An **Organization** JSON-LD script sits in `app/layout.tsx` (name, url,
   logo, email, address).
-- **`metadataBase` is set to `https://venturis.mu`** (in `lib/site.ts`) since
-  that's the domain already used throughout the site's own copy (the email
-  address, the Terms of Use). Confirm this is the real production domain
-  before launch, or every canonical URL, sitemap entry and social image URL
-  will point at the wrong place — this is a one-line change in `lib/site.ts`.
+- **`metadataBase` is set to `https://venturisgroup.mu`** (`SITE_DOMAIN` in
+  `lib/site.ts`), the confirmed production domain. It's the single place to
+  change if that ever changes: `SITE_URL`, `SITE_EMAIL`, every canonical URL,
+  the sitemap and the social image URLs all derive from it.
 
 ## Design notes
 
@@ -94,8 +98,9 @@ card metadata.
   don't navigate — they open a single native `<dialog>` enquiry form
   (`components/enquiry-dialog.tsx`), rendered once in the root layout and
   triggered from anywhere via `<Button enquiry>`. Submitting composes a
-  `mailto:` draft to `info@venturis.mu`; there's no backend, so nothing is
-  actually sent until the visitor sends it from their own mail app.
+  `mailto:` draft to `SITE_EMAIL` (`lib/site.ts`); there's no backend, so
+  nothing is actually sent until the visitor sends it from their own mail
+  app.
 - **Floating WhatsApp button** (`components/whatsapp-button.tsx`), rendered
   once in the root layout on every page. A plain `wa.me` link (no client JS)
   to `+44 7472 773107` with a pre-filled message; kept in WhatsApp's own green
@@ -107,10 +112,10 @@ card metadata.
 No Node.js app, no database, nothing to keep running — this is a static
 site, so "hosting on command" just means: build, then upload.
 
-1. **Confirm the domain first.** `lib/site.ts`'s `SITE_URL` is baked into
+1. **The domain is already set.** `lib/site.ts`'s `SITE_DOMAIN` is
+   `venturisgroup.mu` (the confirmed production domain) and is baked into
    every canonical URL, the sitemap, and the social preview images at build
-   time. If the real domain isn't `venturis.mu`, change it there and rebuild
-   before you upload anything (see "Before launch", below).
+   time. If that ever changes, update it there and rebuild before uploading.
 2. **Build.**
    ```bash
    npm run build
@@ -145,16 +150,23 @@ everything under `/public` into the export root) and handles the details a
 plain static host needs: forcing HTTPS, a custom 404 page, long-lived cache
 headers for the content-hashed `_next/static` assets, and — the one genuine
 static-export gotcha here — forcing `Content-Type: image/png` on the
-favicon/social-preview routes (`/icon`, `/opengraph-image`, etc.), which
-Next.js generates as real PNGs at extensionless URLs. Apache's normal
+social-preview routes (`/opengraph-image`, `/about/opengraph-image`, etc.),
+which Next.js generates as real PNGs at extensionless URLs. Apache's normal
 extension-based MIME lookup can't tell that, and without the override,
 Facebook/Twitter/LinkedIn link previews break silently because those
 crawlers fetch the image URL directly and require an image `Content-Type`
-header (they don't read the page's HTML to guess).
+header (they don't read the page's HTML to guess). The favicon and Apple
+touch icon don't need this: they're plain `icon.png` / `apple-icon.png`
+files, so Apache gets the type right on its own.
 
 ## Before launch
 
-Placeholder content that still needs a decision:
+Settled already: the production domain (`venturisgroup.mu`), the favicon /
+Apple touch icon / OG card mark (the real logo, not a placeholder), and the
+X/Twitter handle (intentionally left out — no account yet; add one to
+`lib/site.ts`'s `OG_BASE`/page metadata if Venturis gets one).
+
+Still open, by design (real assets this project doesn't have):
 
 1. **Hero image** — `assets/hero.jpg`, a stock port photo (grayscale,
    navy-tinted). Swap for real Mauritius port / operations photography at a
@@ -170,8 +182,3 @@ Placeholder content that still needs a decision:
    have a real one-click "sent" confirmation, wire `handleSubmit` in
    `components/enquiry-dialog.tsx` to an API route or a form endpoint
    (Resend, Formspree, etc.) instead of building the `mailto:` link.
-4. **Production domain** — confirm `venturis.mu` in `lib/site.ts` is correct
-   (see SEO, above).
-5. **X / Twitter handle** — `twitter.site` / `twitter.creator` (byline
-   attribution on the card) were left out rather than invented. Add them in
-   `lib/site.ts`'s `OG_BASE`/page metadata if Venturis has a real account.

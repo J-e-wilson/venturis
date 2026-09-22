@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, EnvelopeSimple, X } from "@phosphor-icons/react";
 import { ENQUIRY_DIALOG_ID } from "@/lib/enquiry-dialog";
+import { SITE_EMAIL } from "@/lib/site";
 
 const CATEGORIES = [
   "General enquiry",
@@ -106,7 +107,7 @@ export function EnquiryDialog() {
       "",
       message,
     ].join("\n");
-    const mailto = `mailto:info@venturis.mu?subject=${encodeURIComponent(
+    const mailto = `mailto:${SITE_EMAIL}?subject=${encodeURIComponent(
       subject,
     )}&body=${encodeURIComponent(body)}`;
 
@@ -155,7 +156,7 @@ export function EnquiryDialog() {
                 <h3 className="text-h3 text-text">Almost there</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">
                   Your email app should now have a message ready, addressed
-                  to info@venturis.mu. Send it from there to reach us.
+                  to {SITE_EMAIL}. Send it from there to reach us.
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-muted">
                   Nothing open?{" "}
@@ -164,10 +165,10 @@ export function EnquiryDialog() {
                   </a>
                   , or write to us directly at{" "}
                   <a
-                    href="mailto:info@venturis.mu"
+                    href={`mailto:${SITE_EMAIL}`}
                     className="text-accent hover:underline"
                   >
-                    info@venturis.mu
+                    {SITE_EMAIL}
                   </a>
                   .
                 </p>
@@ -245,7 +246,7 @@ export function EnquiryDialog() {
                   <ArrowRight size={16} weight="regular" />
                 </button>
                 <p className="text-xs text-muted">
-                  Opens a pre-filled email to info@venturis.mu. Nothing sends
+                  Opens a pre-filled email to {SITE_EMAIL}. Nothing sends
                   until you do, from your own mail app.
                 </p>
               </div>

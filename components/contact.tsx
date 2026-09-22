@@ -7,13 +7,14 @@ import {
 import { Container } from "./container";
 import { Reveal } from "./reveal";
 import { Button } from "./button";
+import { SITE_EMAIL } from "@/lib/site";
 
 const DETAILS = [
   {
     icon: EnvelopeSimple,
     label: "Email",
-    value: "info@venturis.mu",
-    href: "mailto:info@venturis.mu",
+    value: SITE_EMAIL,
+    href: `mailto:${SITE_EMAIL}`,
   },
   {
     icon: Phone,

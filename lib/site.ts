@@ -1,12 +1,11 @@
 /**
  * Single source of truth for the domain and core copy used across metadata,
- * robots.ts, sitemap.ts and the structured-data script. Update SITE_URL here
- * once the real production domain is confirmed; venturis.mu is used as the
- * placeholder since it is already the brand's email and website domain
- * referenced throughout the site's own copy.
+ * robots.ts, sitemap.ts and the structured-data script.
  */
-export const SITE_URL = "https://venturis.mu";
+export const SITE_DOMAIN = "venturisgroup.mu";
+export const SITE_URL = `https://${SITE_DOMAIN}`;
 export const SITE_NAME = "Venturis";
+export const SITE_EMAIL = `info@${SITE_DOMAIN}`;
 // Kept at or under ~60 characters so Google doesn't truncate it in the SERP.
 export const SITE_TITLE =
   "Venturis | Drinks and food FMCG supply through Mauritius";

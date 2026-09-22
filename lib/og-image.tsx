@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
+import { SITE_DOMAIN } from "./site";
 
 /**
  * Shared renderer for every route's Open Graph / Twitter card image. Each
@@ -21,8 +22,14 @@ const FONT_DIR = join(
   process.cwd(),
   "node_modules/geist/dist/fonts/geist-sans",
 );
+// The real brand mark (circle + "V"), recolored for a dark card the same
+// way components/logo.tsx recolors it for the footer: off-white and gold
+// instead of the on-white-background navy, so the stroke stays visible
+// against INK. Traced from Site_info/Venturis - Logo.pdf, not hand-drawn.
+const MARK_PATH = join(process.cwd(), "assets/logo-mark-dark.png");
 
 let fonts: { name: string; data: Buffer; weight: 400 | 600 }[] | null = null;
+let markDataUri: string | null = null;
 
 async function loadFonts() {
   if (fonts) return fonts;
@@ -37,6 +44,13 @@ async function loadFonts() {
   return fonts;
 }
 
+async function loadMark() {
+  if (markDataUri) return markDataUri;
+  const buf = await readFile(MARK_PATH);
+  markDataUri = `data:image/png;base64,${buf.toString("base64")}`;
+  return markDataUri;
+}
+
 export async function renderOgImage({
   title,
   description,
@@ -44,7 +58,7 @@ export async function renderOgImage({
   title: string;
   description: string;
 }) {
-  const loadedFonts = await loadFonts();
+  const [loadedFonts, mark] = await Promise.all([loadFonts(), loadMark()]);
 
   return new ImageResponse(
     (
@@ -62,27 +76,8 @@ export async function renderOgImage({
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
-            <circle
-              cx="24"
-              cy="24"
-              r="22"
-              stroke="rgba(255,255,255,0.35)"
-              strokeWidth="1.5"
-            />
-            <path
-              d="M13.5 12 L23 34.5"
-              stroke={ON_INK}
-              strokeWidth="5"
-              strokeLinecap="round"
-            />
-            <path
-              d="M23 34.5 L34 12"
-              stroke={GOLD}
-              strokeWidth="4"
-              strokeLinecap="round"
-            />
-          </svg>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={mark} width={40} height={40} alt="" />
           <span
             style={{
               fontSize: 22,
@@ -130,7 +125,7 @@ export async function renderOgImage({
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <div style={{ width: 28, height: 2, backgroundColor: GOLD }} />
           <span style={{ fontSize: 16, letterSpacing: 0.5, color: MUTED }}>
-            venturis.mu · Mauritius-based drinks and food FMCG supply
+            {SITE_DOMAIN} · Mauritius-based drinks and food FMCG supply
           </span>
         </div>
       </div>

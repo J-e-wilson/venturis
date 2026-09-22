@@ -3,13 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import { X } from "@phosphor-icons/react";
 import { LEGAL_DIALOG_ID, LEGAL_OPEN_EVENT, type LegalDoc } from "@/lib/legal-dialog";
+import { SITE_DOMAIN, SITE_EMAIL } from "@/lib/site";
 
 const LAST_UPDATED = "14 September 2026";
 
 const PRIVACY: { title: string; body: string }[] = [
   {
     title: "What this covers",
-    body: "This policy explains what happens to information you share on venturis.mu, the marketing website for Venturis Ltd. It does not cover information exchanged once a supply arrangement is agreed separately, in writing.",
+    body: `This policy explains what happens to information you share on ${SITE_DOMAIN}, the marketing website for Venturis Ltd. It does not cover information exchanged once a supply arrangement is agreed separately, in writing.`,
   },
   {
     title: "No cookies, no tracking",
@@ -17,7 +18,7 @@ const PRIVACY: { title: string; body: string }[] = [
   },
   {
     title: "The enquiry form",
-    body: "Filling in “Get in touch” does not submit anything to our servers. It opens a pre-filled email in your own mail app, addressed to info@venturis.mu. Whether that email actually gets sent is entirely your choice.",
+    body: `Filling in “Get in touch” does not submit anything to our servers. It opens a pre-filled email in your own mail app, addressed to ${SITE_EMAIL}. Whether that email actually gets sent is entirely your choice.`,
   },
   {
     title: "If you email us",
@@ -33,7 +34,7 @@ const PRIVACY: { title: string; body: string }[] = [
   },
   {
     title: "Your rights",
-    body: "You can ask what we hold about you, ask us to correct it, or ask us to delete it, at any time. Email info@venturis.mu.",
+    body: `You can ask what we hold about you, ask us to correct it, or ask us to delete it, at any time. Email ${SITE_EMAIL}.`,
   },
   {
     title: "Changes to this policy",
@@ -44,7 +45,7 @@ const PRIVACY: { title: string; body: string }[] = [
 const TERMS: { title: string; body: string }[] = [
   {
     title: "Agreement to these terms",
-    body: "By using venturis.mu you agree to these terms. If you do not agree, please do not use the site.",
+    body: `By using ${SITE_DOMAIN} you agree to these terms. If you do not agree, please do not use the site.`,
   },
   {
     title: "What this site is",

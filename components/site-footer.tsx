@@ -3,6 +3,7 @@ import { EnvelopeSimple, MapPin } from "@phosphor-icons/react/dist/ssr";
 import { Logo } from "./logo";
 import { Container } from "./container";
 import { LegalLinks } from "./legal-links";
+import { SITE_EMAIL } from "@/lib/site";
 
 const NAV_LINKS = [
   { href: "/about", label: "About" },
@@ -50,11 +51,11 @@ export function SiteFooter() {
             <p className={groupLabel}>Reach us</p>
             <div className="mt-4 flex flex-col gap-2.5 text-sm text-on-ink/80">
               <a
-                href="mailto:info@venturis.mu"
+                href={`mailto:${SITE_EMAIL}`}
                 className="inline-flex items-center gap-2 transition-colors hover:text-on-ink"
               >
                 <EnvelopeSimple size={16} weight="regular" className="text-accent-bright" />
-                info@venturis.mu
+                {SITE_EMAIL}
               </a>
               <span className="inline-flex items-center gap-2">
                 <MapPin size={16} weight="regular" className="text-accent-bright" />
