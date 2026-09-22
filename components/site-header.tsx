@@ -7,6 +7,7 @@ import { List, X } from "@phosphor-icons/react";
 import { Logo } from "./logo";
 import { Container } from "./container";
 import { Button } from "./button";
+import { ThemeToggle } from "./theme-toggle";
 
 const LINKS = [
   { href: "/about", label: "About" },
@@ -51,34 +52,38 @@ export function SiteHeader() {
               </Link>
             );
           })}
+          <ThemeToggle className="ml-1" />
           <Button enquiry withArrow={false} className="ml-2">
             Get in touch
           </Button>
         </nav>
 
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="relative inline-flex h-10 w-10 items-center justify-center rounded-full transition-transform duration-100 ease-out active:scale-90 lg:hidden"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-        >
-          <List
-            size={22}
-            weight="regular"
-            className={`absolute transition-all duration-200 ease-out ${
-              open ? "rotate-90 scale-50 opacity-0" : "opacity-100"
-            }`}
-          />
-          <X
-            size={22}
-            weight="regular"
-            className={`absolute transition-all duration-200 ease-out ${
-              open ? "opacity-100" : "-rotate-90 scale-50 opacity-0"
-            }`}
-          />
-        </button>
+        <div className="flex items-center gap-1 lg:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="relative inline-flex h-10 w-10 items-center justify-center rounded-full transition-transform duration-100 ease-out active:scale-90"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+          >
+            <List
+              size={22}
+              weight="regular"
+              className={`absolute transition-all duration-200 ease-out ${
+                open ? "rotate-90 scale-50 opacity-0" : "opacity-100"
+              }`}
+            />
+            <X
+              size={22}
+              weight="regular"
+              className={`absolute transition-all duration-200 ease-out ${
+                open ? "opacity-100" : "-rotate-90 scale-50 opacity-0"
+              }`}
+            />
+          </button>
+        </div>
       </Container>
 
       <div

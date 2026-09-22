@@ -16,6 +16,7 @@ import {
   SITE_URL,
   TWITTER_CARD,
 } from "@/lib/site";
+import { THEME_INIT_SCRIPT } from "@/lib/theme";
 import "./globals.css";
 
 const serif = Newsreader({
@@ -97,6 +98,19 @@ export default function RootLayout({
       className={`${GeistSans.variable} ${GeistMono.variable} ${serif.variable}`}
     >
       <body>
+        {/*
+          A plain, literal <script>: the browser parses and executes this
+          synchronously, in document order, before painting anything below
+          it. That guarantee is the whole point (it's what keeps an explicit
+          theme choice from flashing the system-default theme first) and
+          next/script's `beforeInteractive` strategy doesn't reliably give
+          it under static export, since it hands the code to Next's own
+          runtime to inject rather than running it inline.
+        */}
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }}
+        />
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger

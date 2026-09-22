@@ -50,8 +50,17 @@
     0 0 32px color-mix(in srgb, var(--accent-bright) 28%, transparent);
 }
 
+/*
+  Three states: system-dark (the media query, deferring to whichever the
+  visitor hasn't overridden), and an explicit `data-theme` on <html> set by
+  ThemeToggle (persisted to localStorage, applied before paint by the inline
+  script in app/layout.tsx so there's no flash). `:not([data-theme="light"])`
+  lets an explicit light choice win even when the OS is in dark mode; the
+  bare `[data-theme="dark"]` block below makes an explicit dark choice win
+  even when the OS is in light mode. Same values, listed twice on purpose.
+*/
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #0e161c;
     --surface: #151f28;
     --raised: #1a2732;
@@ -69,6 +78,40 @@
     --sh-hero: 0 14px 34px rgb(0 0 0 / 0.5), 0 34px 80px rgb(0 0 0 / 0.6);
     --glow: 0 0 0 1px color-mix(in srgb, var(--accent-bright) 60%, transparent),
       0 0 38px color-mix(in srgb, var(--accent-bright) 40%, transparent);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e161c;
+  --surface: #151f28;
+  --raised: #1a2732;
+  --ink: #1a2b37;
+  --on-ink: #eceef0;
+  --text: #e8ebed;
+  --muted: #9aa6af;
+  --border: #26333d;
+  --hairline: #212d36;
+  --accent: #d2a55e;
+  --accent-bright: #cf9a4a;
+
+  --sh-card: 0 1px 2px rgb(0 0 0 / 0.34), 0 4px 14px rgb(0 0 0 / 0.4);
+  --sh-raised: 0 6px 16px rgb(0 0 0 / 0.42), 0 18px 44px rgb(0 0 0 / 0.5);
+  --sh-hero: 0 14px 34px rgb(0 0 0 / 0.5), 0 34px 80px rgb(0 0 0 / 0.6);
+  --glow: 0 0 0 1px color-mix(in srgb, var(--accent-bright) 60%, transparent),
+    0 0 38px color-mix(in srgb, var(--accent-bright) 40%, transparent);
+}
+
+/*
+  Easing the swap itself: an instant hard cut between light and dark reads
+  as a jarring brightness jump. Only the two properties that actually carry
+  the theme's tone transition, and only on the toggle's own action (this
+  is not a hover/scroll effect, so it doesn't fight `.box-hover` or any
+  other transition already declared on these elements).
+*/
+@media (prefers-reduced-motion: no-preference) {
+  body,
+  header,
+  footer {
+    transition: background-color 320ms ease-out, color 320ms ease-out;
   }
 }
 
