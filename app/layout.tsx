@@ -96,8 +96,23 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${GeistSans.variable} ${GeistMono.variable} ${serif.variable}`}
+      // The theme-init script (first thing in <body>) sets `data-theme` on
+      // this element directly, before hydration, to avoid a flash of the
+      // wrong theme. Server-rendered HTML never has that attribute (the
+      // server doesn't know the visitor's stored choice), so it will always
+      // differ from the client's actual DOM by design here, not by bug;
+      // this is the standard, documented way to tell React that's expected.
+      suppressHydrationWarning
     >
-      <body>
+      {/*
+        suppressHydrationWarning here too: some browser extensions (Grammarly
+        is the common one, via data-gr-ext-installed /
+        data-new-gr-c-s-check-loaded) inject attributes onto <body> before
+        React hydrates. That's an extension modifying the DOM on the visitor's
+        machine, not a real markup mismatch, so it's expected to differ from
+        the server-rendered HTML and safe to ignore here.
+      */}
+      <body suppressHydrationWarning>
         {/*
           A plain, literal <script>: the browser parses and executes this
           synchronously, in document order, before painting anything below
