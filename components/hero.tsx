@@ -1,8 +1,19 @@
-import Image from "next/image";
 import { Container } from "./container";
 import { Reveal } from "./reveal";
 import { Button } from "./button";
-import heroImg from "@/assets/hero.jpg";
+import { HeroSlideshow } from "./hero-slideshow";
+import habor1 from "@/assets/habor.jpeg";
+import habor2 from "@/assets/habor2.jpeg";
+import habor3 from "@/assets/habor3.jpeg";
+
+const HERO_SLIDES = [
+  { src: habor1, alt: "Container terminal at a trade port" },
+  { src: habor2, alt: "Port Louis waterfront, Mauritius" },
+  {
+    src: habor3,
+    alt: "Aerial view of Port Louis harbour and marina, Mauritius",
+  },
+];
 
 export function Hero() {
   return (
@@ -33,18 +44,7 @@ export function Hero() {
         </Reveal>
 
         <Reveal className="relative">
-          <div className="box-hover relative aspect-[4/5] w-full overflow-hidden rounded-card bg-ink shadow-hero">
-            <Image
-              src={heroImg}
-              alt="Container terminal at a trade port"
-              placeholder="blur"
-              priority
-              fill
-              sizes="(max-width: 1024px) 100vw, 46vw"
-              className="object-cover opacity-90 mix-blend-luminosity"
-            />
-            <div className="absolute inset-0 bg-gradient-to-tr from-ink/70 via-ink/15 to-transparent" />
-          </div>
+          <HeroSlideshow images={HERO_SLIDES} />
         </Reveal>
       </Container>
     </section>

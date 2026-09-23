@@ -162,23 +162,23 @@ files, so Apache gets the type right on its own.
 ## Before launch
 
 Settled already: the production domain (`venturisgroup.mu`), the favicon /
-Apple touch icon / OG card mark (the real logo, not a placeholder), and the
+Apple touch icon / OG card mark (the real logo, not a placeholder), the
 X/Twitter handle (intentionally left out — no account yet; add one to
-`lib/site.ts`'s `OG_BASE`/page metadata if Venturis gets one).
+`lib/site.ts`'s `OG_BASE`/page metadata if Venturis gets one), the hero
+image (`assets/habor.jpeg`, a real container terminal photo), and the
+footer's office photo (`assets/office.jpg`, hover-reveals "Ebène,
+Mauritius").
 
 Still open, by design (real assets this project doesn't have):
 
-1. **Hero image** — `assets/hero.jpg`, a stock port photo (grayscale,
-   navy-tinted). Swap for real Mauritius port / operations photography at a
-   portrait crop (roughly 4:5).
-2. **Supply category photos** — `assets/supply-beverages.jpg` (a bottling
+1. **Supply category photos** — `assets/supply-beverages.jpg` (a bottling
    line, photo by Waldemar Brandt) and `assets/supply-food.jpg` (a packaged
    staple foods warehouse, photo by Dennis Siqueira), both via Unsplash
    (Unsplash License: free for commercial use, no attribution required).
    Fine to keep, but swap for Venturis' own product/warehouse photography
    when available — same treatment (`mix-blend-luminosity` navy duotone) will
    carry over automatically in `components/supply.tsx`.
-3. **Enquiry delivery** — currently mailto-only (see above). If you'd rather
+2. **Enquiry delivery** — currently mailto-only (see above). If you'd rather
    have a real one-click "sent" confirmation, wire `handleSubmit` in
    `components/enquiry-dialog.tsx` to an API route or a form endpoint
    (Resend, Formspree, etc.) instead of building the `mailto:` link.
