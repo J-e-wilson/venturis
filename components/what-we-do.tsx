@@ -17,17 +17,20 @@ export function WhatWeDo() {
             <div className="space-y-4 text-base leading-relaxed text-muted">
               <p>
                 Venturis is a Mauritius-based supply company focused on drinks
-                and food FMCG. We keep the category narrow so supplier
-                relationships, quality control and logistics stay tight.
+                and food FMCG. Rather than spreading across categories, we
+                focus on sourcing and supply in the sectors that matter to
+                our clients: packaged food and beverages.
               </p>
               <p>
-                Our base sits in a stable, well-regulated jurisdiction between
-                African demand and Asian and European supply, with the trade
-                infrastructure to move goods efficiently in both directions.
+                Our base gives us a natural advantage - a stable,
+                well-regulated jurisdiction between African demand and Asian
+                and European supply, with the trade infrastructure to move
+                goods efficiently in both directions.
               </p>
               <p>
                 We work directly with producers and distributors to secure
-                consistent supply, competitive terms and dependable delivery.
+                consistent supply, competitive terms and dependable delivery
+                timelines.
               </p>
             </div>
           </Reveal>

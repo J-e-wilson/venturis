@@ -7,7 +7,7 @@ const POINTS = [
   },
   {
     title: "Focused expertise",
-    body: "We work only in drinks and food FMCG, so sourcing decisions come from real category knowledge, not a spread-thin catalogue.",
+    body: "We work exclusively in drinks and food FMCG, so sourcing decisions are informed by real category knowledge, not a spread-thin catalogue.",
   },
   {
     title: "Direct relationships",
@@ -15,7 +15,7 @@ const POINTS = [
   },
   {
     title: "Full documentation",
-    body: "Every shipment carries complete trade paperwork: invoices, certificates of origin and compliance records.",
+    body: "Every shipment is backed by complete trade documentation: invoices, certificates of origin, and compliance records.",
   },
 ];
 
@@ -25,10 +25,11 @@ export function Why() {
       <Container>
         <div className="max-w-2xl">
           <h2 className="text-h2 text-text">
-            Credibility comes down to consistency
+            Built to be a dependable partner, not just a supplier
           </h2>
           <p className="mt-5 text-base leading-relaxed text-muted">
-            Four things we hold steady on every shipment.
+            Credibility in FMCG supply comes down to consistency; here's how
+            we protect it.
           </p>
         </div>
 

@@ -24,31 +24,14 @@ const STEPS = [
   },
 ];
 
-const INCLUDED = [
-  {
-    title: "Commercial invoice",
-    body: "Itemised, with the incoterms agreed up front.",
-  },
-  {
-    title: "Certificate of origin",
-    body: "For preferential tariff treatment where it applies.",
-  },
-  {
-    title: "Customs and compliance",
-    body: "Cleared paperwork for both origin and destination.",
-  },
-  {
-    title: "Delivery schedule",
-    body: "Confirmed dates, tracked through to arrival.",
-  },
-];
-
 export function Process() {
   return (
     <section className="pt-14 pb-20 md:pt-20 md:pb-24">
       <Container>
         <Reveal className="max-w-2xl">
-          <h1 className="text-h1 text-text">From requirement to delivery</h1>
+          <h1 className="text-h1 text-text">
+            A straightforward process, start to delivery
+          </h1>
           <p className="mt-6 text-base leading-relaxed text-muted">
             Every engagement runs the same four steps, so you always know what
             happens next and who is doing it.
@@ -77,23 +60,6 @@ export function Process() {
               </li>
             ))}
           </ol>
-        </div>
-
-        <div className="mt-16 md:mt-20">
-          <h2 className="text-h2 text-text">What every shipment carries</h2>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 md:gap-6 lg:grid-cols-4">
-            {INCLUDED.map((item) => (
-              <div
-                key={item.title}
-                className="box-hover rounded-cell border border-hairline bg-raised p-6 shadow-card"
-              >
-                <h3 className="text-h3 text-text">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {item.body}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
       </Container>
     </section>

@@ -77,7 +77,7 @@ export function Supply() {
           <CategoryCard
             title="Food FMCG"
             body="Packaged and staple foods, sourced and consolidated for reliable, recurring supply to distributors and retailers."
-            note="Recurring volumes are planned ahead with suppliers so lead times stay predictable."
+            note="Careful forecasting with our suppliers prevents shortages and keeps every order on schedule."
             image={foodImg}
             imageAlt="Shelves and pallets of packaged staple foods in a distribution warehouse"
             delayMs={90}
@@ -87,7 +87,7 @@ export function Supply() {
         <div className="mt-12 grid gap-5 md:mt-16 md:grid-cols-2 md:gap-6">
           <div className="box-hover rounded-cell border border-hairline bg-raised p-6 shadow-card md:p-7">
             <span className="block h-px w-10 bg-accent-bright" />
-            <h2 className="text-h3 mt-4 text-text">Supplier vetting</h2>
+            <h2 className="text-h3 mt-4 text-text">Supplier Vetting</h2>
             <p className="mt-2 text-base leading-relaxed text-muted">
               Every supplier is assessed for product quality, documentation and
               delivery reliability before onboarding.
@@ -96,11 +96,11 @@ export function Supply() {
           <div className="box-hover rounded-cell border border-hairline bg-raised p-6 shadow-card md:p-7">
             <span className="block h-px w-10 bg-accent-bright" />
             <h2 className="text-h3 mt-4 text-text">
-              Logistics and documentation
+              Logistics & Documentation
             </h2>
             <p className="mt-2 text-base leading-relaxed text-muted">
-              Shipping, customs paperwork and delivery scheduling handled from
-              origin to arrival.
+              Shipping, customs paperwork and delivery scheduling handled
+              end-to-end so clients receive goods on time.
             </p>
           </div>
         </div>
