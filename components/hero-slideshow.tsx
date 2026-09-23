@@ -3,7 +3,12 @@
 import { useEffect, useState } from "react";
 import Image, { type StaticImageData } from "next/image";
 
-const SLIDE_MS = 2000;
+// 5s dwell / 600ms crossfade matches Bootstrap's carousel defaults, the de
+// facto reference for web carousel timing, and general UX guidance that
+// auto-rotating content needs several seconds of dwell time to actually be
+// read, not just noticed. The crossfade duration lives on `.photo-elegant
+// img` in globals.css (shared with every other photo on the site), not here.
+const SLIDE_MS = 5000;
 
 export function HeroSlideshow({
   images,
